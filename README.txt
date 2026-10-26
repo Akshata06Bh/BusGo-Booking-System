@@ -1,16 +1,32 @@
-# BusGo - Assignment 1: JavaScript Capabilities
+# BusGo – Bus Ticket Booking System
 
-## Features added
-- Validates source city, destination city, and journey date before saving.
-- Rejects empty fields, identical source/destination cities, and past dates.
-- Stores valid journey searches as objects in a JavaScript Array.
-- Converts the Array to JSON with `JSON.stringify()` and saves it in `localStorage`.
-- Loads JSON with `JSON.parse()` when the page is opened again.
-- Displays the last five saved searches.
-- Displays success/error messages and allows the user to clear saved search history.
+BusGo is a web application that allows users to enter bus journey details and validate their search requests.
 
-## Run locally
-Open `index.html` in a browser. For best results, use VS Code Live Server.
+## Technologies Used
+- HTML, CSS, JavaScript
+- Node.js and Express.js
+- GitHub and Render
 
-## Important
-This assignment stores data in the current browser only. It does not use a server or database. Assignment 2 will add Node.js server-side validation separately.
+## Features
+- User-friendly bus booking interface.
+- Source, destination, and travel date validation.
+- Server-side validation using Node.js and Express.
+- Prevents identical source and destination cities.
+- Rejects invalid or past travel dates.
+- Displays success and error messages.
+- Stores search history in browser localStorage.
+
+## Run Locally
+
+```bash
+npm install
+npm start
+```
+
+Open `http://localhost:3000` in your browser.
+
+## Live Demo
+https://busgo-booking-system-ahhs.onrender.com
+
+## Conclusion
+BusGo demonstrates server-side validation using Node.js and Express.js and is deployed using Render.

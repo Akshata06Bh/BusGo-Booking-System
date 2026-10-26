@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BusGo - Bus Ticket Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER / NAVBAR ===================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="showSection('homeSection')">
+        <span class="logo-icon">🚌</span>Bus<span class="logo-accent">Go</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#" class="nav-tab active">Bus Tickets</a>
+        <a href="#" onclick="scrollToOffers(); return false;">Offers</a>
+        <a href="#" onclick="alert('Help: Call our support at 1800-000-000'); return false;">Help</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="icon-link" onclick="alert('Demo only: no bookings yet. Book a ticket first!')">
+          <span>📋</span> Bookings
+        </button>
+        <button class="icon-link" onclick="openAccountPanel()">
+          <span>👤</span> Account
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HOME SECTION ===================== -->
+  <section id="homeSection">
+
+    <!-- HERO SECTION -->
+    <div class="hero" id="home" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?fm=jpg&amp;q=80&amp;w=1600&amp;auto=format&amp;fit=crop');">
+      <div class="hero-fade"></div>
+    </div>
+
+    <!-- SEARCH BUS FORM (floats over the bottom of the hero photo) -->
+    <div class="search-card-wrap">
+      <div class="search-box" id="search">
+
+        <div class="search-tabs-row">
+          <div class="search-tabs">
+            <button class="mode-tab active" onclick="return false;">🚌 Buses</button>
+            <button class="mode-tab" onclick="alert('This demo project only covers bus booking.'); return false;">✈️ Flights</button>
+            <button class="mode-tab" onclick="alert('This demo project only covers bus booking.'); return false;">🚆 Trains</button>
+            <button class="mode-tab" onclick="alert('This demo project only covers bus booking.'); return false;">🏨 Hotels</button>
+          </div>
+          <div class="search-tagline">India's Smart Bus Ticket Booking Platform</div>
+        </div>
+
+        <div class="search-fields-row">
+          <div class="field-group">
+            <label>📍 Leaving From</label>
+            <input type="text" id="fromCity" placeholder="Enter source city" value="Pune">
+          </div>
+
+          <button class="swap-btn" onclick="swapLocations()" title="Swap From and To">&#8646;</button>
+
+          <div class="field-group">
+            <label>📍 Going To</label>
+            <input type="text" id="toCity" placeholder="Enter destination city" value="Mumbai">
+          </div>
+
+          <div class="field-group date-field">
+            <label>📅 Departure</label>
+            <input type="date" id="journeyDate">
+          </div>
+
+          <button type="button" class="quick-date-btn" onclick="setQuickDate(0)">Today</button>
+          <button type="button" class="quick-date-btn" onclick="setQuickDate(1)">Tomorrow</button>
+
+          <button class="btn search-btn" onclick="searchBuses()">Search &rarr;</button>
+        </div>
+
+        <label class="toggle-row ladies-row">
+          <span>👩 Ladies priority booking <a href="#" onclick="alert('Shows buses with more women passengers and a priority helpline.'); return false;">Know more</a></span>
+          <span class="toggle-switch">
+            <input type="checkbox" id="ladiesToggle">
+            <span class="toggle-slider"></span>
+          </span>
+        </label>
+
+        <!-- Assignment 1: JavaScript validation and saved search history -->
+        <div id="searchMessage" class="search-message" role="status" aria-live="polite"></div>
+        <div id="savedSearchesSection" class="saved-searches-section">
+          <h3>Recent Searches</h3>
+          <p class="saved-searches-hint">Valid searches are saved in this browser.</p>
+          <div id="savedSearchesList"></div>
+          <button type="button" id="clearSearchesBtn" class="clear-searches-btn" onclick="clearSavedSearches()">Clear Search History</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFERS SECTION -->
+    <section class="section" id="offersSection">
+      <div class="section-heading-row">
+        <h2 class="section-title left">Offers for you</h2>
+      </div>
+
+      <div class="offer-tabs">
+        <button class="tab-btn active" onclick="filterOffers('all', this)">All</button>
+        <button class="tab-btn" onclick="filterOffers('first', this)">New User</button>
+        <button class="tab-btn" onclick="filterOffers('weekend', this)">Weekend</button>
+        <button class="tab-btn" onclick="filterOffers('student', this)">Student</button>
+        <button class="tab-btn" onclick="filterOffers('festival', this)">Festival</button>
+      </div>
+
+      <div class="card-grid offer-grid" id="offerGrid">
+        <!-- Offer cards are inserted by JavaScript -->
+      </div>
+    </section>
+
+    <!-- WHAT'S NEW SECTION -->
+    <section class="section alt-bg">
+      <h2 class="section-title left">What's new</h2>
+      <div class="card-grid whats-new-grid">
+        <div class="whatsnew-card purple">
+          <h4>Travel Protection</h4>
+          <p>Trip cancellation & delay cover for extra peace of mind.</p>
+          <a href="#" onclick="return false;">Get Started &rarr;</a>
+        </div>
+        <div class="whatsnew-card maroon">
+          <h4>Free Cancellation</h4>
+          <p>Get up to 100% refund when you cancel in time.</p>
+          <a href="#" onclick="return false;">Know more &rarr;</a>
+        </div>
+        <div class="whatsnew-card white">
+          <h4>Live Bus Tracking</h4>
+          <p>Track your bus location in real time on the map.</p>
+          <a href="#" onclick="return false;">Know more &rarr;</a>
+        </div>
+        <div class="whatsnew-card blue">
+          <h4>FlexiTicket</h4>
+          <p>Free date change and cancellation, no extra cost.</p>
+          <a href="#" onclick="return false;">Know more &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR ROUTES SECTION -->
+    <section class="section">
+      <h2 class="section-title left">Popular Routes</h2>
+      <div class="card-grid" id="popularRoutes">
+        <div class="route-card" onclick="quickSearch('Pune','Mumbai')">Pune &rarr; Mumbai</div>
+        <div class="route-card" onclick="quickSearch('Mumbai','Pune')">Mumbai &rarr; Pune</div>
+        <div class="route-card" onclick="quickSearch('Delhi','Jaipur')">Delhi &rarr; Jaipur</div>
+        <div class="route-card" onclick="quickSearch('Bangalore','Chennai')">Bangalore &rarr; Chennai</div>
+        <div class="route-card" onclick="quickSearch('Hyderabad','Bangalore')">Hyderabad &rarr; Bangalore</div>
+        <div class="route-card" onclick="quickSearch('Nagpur','Pune')">Nagpur &rarr; Pune</div>
+      </div>
+    </section>
+
+    <!-- POPULAR BUS OPERATORS -->
+    <section class="section alt-bg">
+      <h2 class="section-title left">Popular Bus Operators</h2>
+      <div class="card-grid operator-grid" id="operatorGrid">
+        <!-- Operator cards inserted by JavaScript -->
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE BUSGO -->
+    <section class="section">
+      <h2 class="section-title">Why Choose BusGo?</h2>
+      <div class="card-grid">
+        <div class="feature-card">
+          <h3>Easy Booking</h3>
+          <p>Book your bus tickets in just a few clicks.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Safe Travel</h3>
+          <p>Verified operators and clean, sanitized buses.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Best Prices</h3>
+          <p>Great deals and offers on every trip.</p>
+        </div>
+        <div class="feature-card">
+          <h3>24/7 Support</h3>
+          <p>Our support team is always ready to help you.</p>
+        </div>
+      </div>
+    </section>
+
+  </section>
+  <!-- ===================== END HOME SECTION ===================== -->
+
+
+  <!-- REMOVED: BUS SEARCH RESULTS SECTION -->
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>About BusGo</h4>
+        <a href="#" onclick="return false;">Contact us</a>
+        <a href="#" onclick="return false;">Sitemap</a>
+        <a href="#" onclick="scrollToOffers(); return false;">Offers</a>
+        <a href="#" onclick="return false;">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#" onclick="return false;">Terms &amp; Conditions</a>
+        <a href="#" onclick="return false;">Privacy Policy</a>
+        <a href="#" onclick="return false;">Blog</a>
+        <a href="#" onclick="return false;">Bus Operator Registration</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <a href="#" onclick="return false;">Facebook</a>
+        <a href="#" onclick="return false;">Instagram</a>
+        <a href="#" onclick="return false;">Twitter / X</a>
+        <a href="#" onclick="return false;">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand"><span class="logo-icon">🚌</span> Bus<span class="logo-accent">Go</span></div>
+      <p>BusGo is a demo bus ticket booking project built for educational purposes only. Not a real booking service.</p>
+    </div>
+    <p class="footer-copy">&copy; 2026 BusGo College Project. All rights reserved.</p>
+  </footer>
+
+
+  <!-- ===================== ACCOUNT SLIDE PANEL ===================== -->
+  <div class="overlay-dim" id="accountOverlay" onclick="closeAccountPanel()"></div>
+  <div class="account-panel" id="accountPanel">
+    <div class="account-panel-header">
+      <h3>Account</h3>
+      <button class="close-btn" onclick="closeAccountPanel()">&times;</button>
+    </div>
+
+    <div class="account-panel-body">
+      <h2>Log in to manage your bookings</h2>
+      <button class="btn search-btn full-width" onclick="openLoginModal()">Log in</button>
+      <p class="signup-line">Don't have an account? <a href="#" onclick="openLoginModal(); return false;">Sign up</a></p>
+
+      <h4>My details</h4>
+      <div class="account-list-item" onclick="alert('Demo only: no bookings yet.')">📋 Bookings <span>&rsaquo;</span></div>
+      <div class="account-list-item" onclick="alert('This is a demo project - no real account data.')">🙍 Personal information <span>&rsaquo;</span></div>
+
+      <h4>Payments</h4>
+      <div class="account-list-item" onclick="alert('This is a demo project - no real wallet.')">💳 BusGo Wallet <span>&rsaquo;</span></div>
+      <div class="account-list-item" onclick="alert('This is a demo project - no real gift cards.')">🎁 Redeem gift card <span>&rsaquo;</span></div>
+    </div>
+  </div>
+
+
+  <!-- ===================== LOGIN MODAL ===================== -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+      <div class="modal-box-header">
+        <h2>Login to get exciting offers</h2>
+        <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+      </div>
+
+      <label class="small-label">What's your mobile number?</label>
+      <div class="mobile-input-row">
+        <select class="country-code">
+          <option>+91 (IND)</option>
+        </select>
+        <input type="text" id="loginMobile" placeholder="Mobile number" maxlength="10">
+      </div>
+
+      <button class="btn search-btn full-width" onclick="loginModal()">Continue</button>
+
+      <div class="or-divider"><span>or</span></div>
+
+      <button class="btn google-btn full-width" onclick="loginModal()">Continue with Email</button>
+
+      <p class="login-terms">By logging in, I agree to the <a href="#" onclick="return false;">Terms &amp; Conditions</a> and <a href="#" onclick="return false;">Privacy Policy</a>.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
